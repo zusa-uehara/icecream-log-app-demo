@@ -1,0 +1,9 @@
+CREATE TABLE IF NOT EXISTS ice_cream_logs (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    ice_cream_name VARCHAR(100) NOT NULL,
+    maker VARCHAR(100),
+    purchase_date DATE NOT NULL,
+    score INT NOT NULL,
+    flavor_comment VARCHAR(1000) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+) DEFAULT CHARACTER SET=utf8mb4;

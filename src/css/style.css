@@ -1,0 +1,514 @@
+@charset "UTF-8";
+
+/* ==================================================================
+// GLOBAL STYLING & RESET
+// ================================================================== */
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: inherit;
+  box-sizing: inherit;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  /* 1rem を 10px として扱い計算しやすくするための設定 */
+  /* これにより 1.6rem = 16px, 2rem = 20px となります */
+  font-size: 62.5%;
+}
+
+body {
+    /* 提供されたグラデーション背景 */
+    background-image: linear-gradient(90deg, rgba(251, 213, 251, 1), rgba(149, 233, 243, 1));
+    background-attachment: fixed; /* スクロールしても背景を固定 */
+    background-size: cover; /* 背景を拡大縮小して全体を覆う */
+    background-repeat: no-repeat; /* 繰り返しなし */
+
+    /* bodyのデフォルトのマージン・パディングをリセット */
+    margin: 0;
+    padding: 0;
+
+    /* 丸っぽいかわいいフォントを設定 */
+    /* HTMLの<head>でGoogle Fontsを読み込んでいる必要があります */
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    color: #333; /* デフォルトの文字色を見やすく設定 */
+    line-height: 1.6; /* 行間 */
+    font-size: 1.6rem; /* bodyの基本フォントサイズ (16px) */
+    -webkit-text-size-adjust: 100%; /* テキストサイズの自動調整を無効化（一部モバイルブラウザ向け） */
+}
+
+/* リンクのデフォルト下線などをリセット（必要であれば） */
+a {
+    text-decoration: none;
+    color: inherit; /* 親要素の文字色を継承 */
+}
+
+
+/* ==================================================================
+// LAYOUT CONTAINERS
+// ================================================================== */
+
+.container {
+    max-width: 700px; /* コンテンツの最大幅 */
+    margin: 20px auto; /* 中央寄せ */
+    padding: 0 15px; /* 左右の余白 */
+}
+
+.head {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px; /* ヘッダーの下に少しスペース */
+    border-bottom: 1px solid #eee; /* 下に区切り線 */
+}
+
+.title h1 {
+    margin: 0; /* h1のデフォルトマージンをリセット */
+}
+
+.title a {
+    /* headのaスタイルに統合 */
+    color: #333; /* リンクの色 */
+    font-size: 3rem; /* タイトル文字サイズ (24px) */
+    font-weight: bold;
+}
+
+main {
+    padding: 20px 0; /* mainタグの上下に余白 */
+    /* メインコンテンツの背景やパディングが必要なら追加 */
+    /* .main_section のスタイルはフォーム用として保持 */
+}
+
+/* フォーム用セクション（register.phpなどで使用） */
+.main_section {
+    background: #fff; /* メインセクションの背景を白に */
+    padding: 30px; /* 内側の余白 */
+    border-radius: 8px; /* 角丸 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 薄い影 */
+    margin-bottom: 20px; /* 下に余白 */
+}
+
+
+.foot {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px; /* フッターの上にスペース */
+    border-top: 1px solid #eee; /* 上に区切り線 */
+    font-size: 1.4rem; /* 14px */
+    color: #777;
+}
+
+
+/* ==================================================================
+// COMMON ELEMENTS
+// ================================================================== */
+
+p {
+    /* bodyでline-heightを指定済みだが、必要ならここで上書き */
+    line-height: 1.6;
+    margin-top: 0; /* デフォルトマージン調整 */
+    margin-bottom: 1.6rem; /* デフォルトマージン調整 (16px) */
+}
+
+/* レイアウト用のFlexboxやGridの子要素になったpタグは、個別にマージン調整が必要になることが多い */
+
+
+table {
+  border-collapse: collapse;
+  width: 100%; /* 必要なら */
+}
+td, th {
+  padding: 0.8rem 1.2rem; /* rem に修正 */
+  border: 1px solid #ccc; /* 必要なら */
+}
+
+
+/* ==================================================================
+// FORM ELEMENTS
+// ================================================================== */
+/* 基本的なリセットと共通スタイル */
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea,
+button { /* ボタン全般に適用される基本スタイル */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    outline: none;
+    border: none; /* 基本的にボーダーをなくす */
+    font-family: inherit; /* 親要素のフォントを継承 */
+    font-size: 1.6rem; /* フォーム要素の基本フォントサイズ (16px) */
+    line-height: 1.5;
+}
+
+/* フォームグループごとの間隔 */
+.form-group {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* ラベルのスタイル */
+.form-group label {
+    display: block;
+    text-align: left; /* ラベルは左寄せ */
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+    font-size: 1.6rem; /* 16px */
+}
+
+/* テキスト、数値、テキストエリアの入力欄スタイル */
+input[type="text"],
+input[type="number"],
+textarea {
+    background: #f8f8f8;
+    display: block;
+    width: 100%;
+    padding: 1.2rem 1.5rem; /* rem に修正 */
+    transition: 0.3s ease;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1.6rem; /* rem に修正 */
+}
+
+/* テキストエリアの高さ */
+textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* 入力欄フォーカス時のスタイル */
+input[type="text"]:focus,
+input[type="number"]:focus,
+textarea:focus {
+    background: #e9f5fb;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+/* 日付入力欄のスタイル */
+input[type="date"] {
+    background: #f8f8f8;
+    display: block;
+    width: 100%;
+    padding: 1.2rem 1.5rem; /* rem に修正 */
+    transition: 0.3s ease;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 1.6rem; /* rem に修正 */
+    color: #333;
+    height: auto;
+    cursor: text;
+}
+
+/* 日付入力欄のフォーカススタイル */
+input[type="date"]:focus {
+     background: #e9f5fb;
+     border-color: #007bff;
+     box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
+}
+
+/* プレースホルダーのスタイル */
+input::placeholder,
+textarea::placeholder {
+    color: #aaa;
+    opacity: 1;
+}
+
+/* エラーメッセージのリスト */
+ul.text-danger {
+    color: red;
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 20px;
+}
+
+ul.text-danger li {
+    margin-bottom: 5px;
+    font-size: 1.4rem; /* エラーメッセージのフォントサイズ (14px) */
+}
+
+
+/* ==================================================================
+// BUTTON STYLING
+// ================================================================== */
+
+/* 送信ボタンのスタイル (グラデーション背景) */
+button[type="submit"].btn-primary {
+    display: inline-block;
+    padding: 1.2rem 2.4rem; /* 内側の余白 (remに修正) */
+    font-size: 1.6rem; /* rem に修正 (16px) */
+    font-weight: bold; /* 太字に */
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    user-select: none; /* テキスト選択不可 */
+    border: none; /* ボーダーは不要 */
+    border-radius: 0.5rem; /* 角丸 (remに修正) */
+
+    /* グラデーション背景の設定 */
+    background-image: linear-gradient(90deg, rgba(251, 213, 251, 1), rgba(149, 233, 243, 1));
+    background-size: 200% 100%;
+    background-position: 0% 0%;
+
+    color: #555; /* テキストの色 - グラデーション背景に合わせて調整 */
+
+    /* ホバー時のアニメーション設定 */
+    transition: all 0.4s ease;
+}
+
+/* 送信ボタンのホバー時のスタイル */
+button[type="submit"].btn-primary:hover {
+    background-position: 100% 0%;
+    color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* アイス追加ボタンエリアのコンテナ */
+.solid-button-area {
+    text-align: center; /* ボタンを中央に配置 */
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* アイス追加！ボタンのスタイル (.solid-button-area 内の a タグ) */
+.solid-button-area a {
+    position: relative;
+    display: flex;
+    justify-content: center; /* 内容を中央に */
+    align-items: center;
+
+    margin: 0 auto;
+    max-width: 240px; /* 最大幅を設定 */
+    padding: 1rem 2.5rem; /* rem に修正 */
+
+    color: #5a677d;
+    background: #fff;
+    border: 2px solid #5a677d; /* px 指定 */
+
+    border-radius: 50px; /* px 指定 */
+    box-shadow: 2px 2px 0px 1px #a0a0a0; /* px 指定 */
+
+    font-weight: 600;
+    /* text-decoration は a 要素の共通スタイルで指定 */
+    font-size: 1.6rem; /* 16px */
+
+    transition: all 0.3s ease-in-out;
+}
+
+/* アイス追加！ボタン ホバー時のスタイル */
+.solid-button-area a:hover {
+    transform: translate3d(2px, 2px, 0); /* px 指定 */
+    box-shadow: none;
+    transition: all 0.2s;
+}
+
+/* アイス追加！ボタン 矢印のスタイル */
+.solid-button-area a:after {
+    content: '';
+    width: 5px; /* px 指定 */
+    height: 5px; /* px 指定 */
+    border-top: 3px solid #5a677d; /* px 指定 */
+    border-right: 3px solid #5a677d; /* px 指定 */
+    transform: rotate(45deg) translateY(-50%);
+    position: absolute;
+    top: 50%;
+    right: 20px; /* px 指定 */
+    border-radius: 1px; /* px 指定 */
+    transition: 0.3s ease-in-out;
+}
+
+
+/* ==================================================================
+// ICE CREAM ENTRY LIST STYLING (Mobile/Default)
+// ================================================================== */
+
+/* 個々のアイス記録エントリのコンテナ */
+.icecream-entry {
+    display: flex; /* 子要素 (entry-date と entry-content) を Flexbox で配置 */
+    flex-direction: column; /* モバイルでは縦並びがデフォルト */
+    background: #fff; /* 白い背景 */
+    border-radius: 8px; /* 角を丸く */
+    padding: 20px; /* 内側の余白 */
+    margin-bottom: 20px; /* 各エントリ間の下余白 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* 薄い影 */
+    align-items: flex-start; /* 上端を揃える */
+}
+
+/* 日付表示エリア (左側) のスタイル (モバイル用) */
+.entry-date {
+    flex-shrink: 0; /* 縮まないように */
+    width: 100%; /* モバイルでは幅いっぱい */
+    text-align: left; /* モバイルでは左寄せ */
+    border-right: none; /* モバイルでは区切り線なし */
+    padding-right: 0; /* モバイルではパディングなし */
+    margin-right: 0; /* モバイルではマージンなし */
+    margin-bottom: 15px; /* モバイルで日付ブロックの下に余白 */
+    color: #5a677d; /* テキスト色（テーマカラーに合わせる） */
+}
+
+/* 日付エリア内の各要素のスタイル (モバイル用 - 横並び) */
+.entry-date .entry-year {
+    font-size: 1.4rem; /* 年を小さめに (14px) */
+    margin-bottom: 0;
+    display: inline-block; /* 横並びにする */
+    margin-right: 0.5rem; /* 横方向のスペース */
+}
+
+.entry-date .entry-month-day {
+    font-size: 2.4rem; /* 月日を大きく太く (24px) */
+    font-weight: bold;
+    display: inline-block; /* 横並びにする */
+    line-height: 1.2;
+    margin-right: 0.5rem; /* 横方向のスペース */
+}
+
+.entry-date .entry-day-of-week {
+    font-size: 1.4rem; /* 曜日を小さめに (14px) */
+    color: #777;
+    display: inline-block; /* 横並びにする */
+}
+
+/* 内容表示エリア (右側) のスタイル (モバイル用) */
+.entry-content {
+    flex-grow: 1; /* 残りのスペースを全て使う */
+    width: 100%; /* モバイルでは幅いっぱい */
+}
+
+/* 内容エリア内の詳細部分の見出しと段落 */
+.entry-details h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 1.8rem; /* 見出しのサイズ (18px) */
+}
+
+.entry-details p {
+    /* maker-score 内の p はメディアクエリでマージン調整 */
+    margin-bottom: 0.8rem; /* デフォルトのpタグより小さめ (8px) */
+    color: #555;
+    font-size: 1.6rem; /* 16px */
+}
+
+/* メーカーと点数を横並びにするコンテナのスタイル (モバイル優先 - デフォルトは縦並び) */
+/* PC表示で Flexbox に切り替えます */
+.maker-score {
+    /* display: flex; はメディアクエリの中に移動 */
+    /* gap: はメディアクエリの中に移動 */
+    margin-bottom: 1.6rem; /* このブロック全体の下にスペース (16px) */
+    /* p タグ間の縦方向のスペースは、ブラウザのデフォルトの p マージンによって生成されます。
+       必要なら、.maker-score p に対して margin-bottom を個別に設定しても良いです。 */
+}
+
+
+/* 内容エリア内のコメント部分の見出しと段落 */
+.entry-comment {
+    margin-top: 1.5rem; /* 詳細部分との間に余白 (15px) */
+    border-top: 1px solid #eee;
+    padding-top: 1.5rem; /* 区切り線の上に余白 (15px) */
+}
+
+.entry-comment h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem; /* 下に余白 (5px) */
+    color: #333;
+    font-size: 1.6rem; /* 見出しのサイズ (16px) */
+}
+
+.entry-comment p {
+    margin-bottom: 0;
+    color: #555;
+    /* font-size: 1.6rem は body から継承 */
+    line-height: 1.6;
+    word-break: break-word;
+}
+
+
+/* 記録がない場合のメッセージのスタイル */
+.no-logs-message {
+    text-align: center;
+    color: #777;
+    margin-top: 3rem; /* 30px */
+    font-size: 1.8rem; /* 18px */
+}
+
+
+/* ==================================================================
+// RESPONSIVE STYLING (PC Layout)
+// 画面幅が768px以上の場合に適用されるスタイルを定義
+// ================================================================== */
+
+@media (min-width: 768px) {
+
+    /* 各アイス記録エントリのスタイル (PC用) */
+    .icecream-entry {
+         flex-direction: row; /* 横並びに戻す */
+         /* align-items: flex-start; は共通 */
+         /* padding, margin, background, border-radius, box-shadow は共通 */
+    }
+
+    /* 日付表示エリア (左側) のスタイル (PC用) */
+    .entry-date {
+        flex-shrink: 0; /* 縮まない */
+        width: 90px; /* PCでは固定幅 */
+        text-align: center; /* PCでは中央寄せ */
+        border-right: 1px solid #eee; /* PCでは右側の区切り線あり */
+        padding-right: 20px; /* PCでは区切り線の右に余白 */
+        margin-right: 20px; /* PCでは内容エリアとの間に余白 */
+        margin-bottom: 0; /* PCでは下余白なし */
+    }
+
+     /* 日付エリア内の各要素のスタイル (PC用 - 縦並びに戻す) */
+    .entry-date .entry-year,
+    .entry-date .entry-month-day,
+    .entry-date .entry-day-of-week {
+        display: block; /* ブロック要素に戻して縦並びに */
+        margin-right: 0; /* 横並び用のマージンをリセット */
+        line-height: 1.2; /* 行間の調整 */
+    }
+
+    .entry-date .entry-year {
+        font-size: 1.4rem; /* 14px */
+        margin-bottom: 0.2rem; /* 2px */
+    }
+     .entry-date .entry-month-day {
+        font-size: 2.4rem; /* 24px */
+        margin-bottom: 0.2rem; /* 2px */
+     }
+    .entry-date .entry-day-of-week {
+         font-size: 1.4rem; /* 14px */
+         margin-top: 0.2rem; /* 上に少し余白 (2px) */
+         color: #777; /* 共通スタイルで指定済みだが再確認 */
+    }
+
+
+    /* 内容表示エリア (右側) のスタイル (PC用) */
+    .entry-content {
+        /* flex-grow: 1 は共通 */
+        width: auto; /* Flexアイテムなので width: 100% は不要（Flexboxが幅を決定） */
+    }
+
+
+    /* メーカーと点数を横並びにするコンテナのスタイル (PC用) */
+    .maker-score {
+        display: flex; /* 子要素 (pタグ) を横並びに配置 */
+        gap: 20px; /* 子要素間の隙間 */
+        align-items: center; /* 縦方向の中央揃え (必要であれば) */
+        flex-wrap: wrap; /* 画面幅が狭くなったら折り返す */
+        /* margin-bottom は共通 */
+    }
+
+    /* Flexアイテムになった p タグのスタイル調整 */
+    .maker-score p {
+        margin: 0; /* Flexアイテムになったので、pタグのデフォルトマージンをリセット */
+        /* 幅を均等にするなら flex: 1; などを追加 */
+    }
+
+}
+/* ------------------------------------------------------------- */
